@@ -16,6 +16,7 @@ if (WIN32)
 endif()
 
 install(FILES $<TARGET_FILE:polyhedronops> DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT libraries)
+install(FILES "${CMAKE_BINARY_DIR}/polyhedron-ops.h" DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 # The unit tests for the demorust module dependends on the C library and may even need
 # to be linked with the C library's 3rd party library dependencies. So to be able to build
