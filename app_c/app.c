@@ -8,15 +8,19 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "demo-rust.h"
+#include "polyhedron-ops.h"
 
 int main(int argc, char** argv)
 {
-    const char* temp = "dtdtdtI";
     for (int i = 0; i < argc; i++)
     {
+        if (i == 0)
+        {
+            continue;
+        }
         printf("%i = %s\n", i, argv[i]);
+        parse_and_write(argv[i], strlen(argv[i]));
     }
-    parse_and_write(temp, strlen(temp));
     return 0;
 }
+

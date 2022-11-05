@@ -5,27 +5,12 @@ use bindgen::builder;
 
 // A list of environment variables to query to determine additional libraries
 // that need to be linked to resolve dependencies.
-const LIB_ENV_LINK: &[&str] = &["LIBDEMO"];
+const LIB_ENV_LINK: &[&str] = &["LIBPOLYHEDRONOPS"];
 
 // Additional [verbatim] libraries to link on Windows platforms
-const LIB_LINK_WINDOWS: &[&str] = &["wsock32", "ws2_32", "Shell32", "User32"];
+const LIB_LINK_WINDOWS: &[&str] = &["Shell32", "User32"];
 
-// Generate bindings for these functions:
-const BINDGEN_FUNCTIONS: &[&str] = &["do_the_thing"];
-
-// Generate bindings for these types (structs, enums):
-const BINDGEN_TYPES: &[&str] = &[];
-
-// Find the required functions and types in these headers:
-const BINDGEN_HEADERS: &[&str] = &["../c/dostuff.h"];
-
-// Find the required headers in these directories:
-const BINDGEN_INCLUDE_PATHS: &[&str] = &["-I../c"];
-
-// Write the bindings to this file:
-const BINDGEN_OUTPUT_FILE: &str = "src/sys.rs";
-
-const C_HEADER_OUTPUT: &str = "demo-rust.h";
+const C_HEADER_OUTPUT: &str = "polyhedron-ops.h";
 
 // Environment variable name prefixes worth including for diags
 const ENV_PATTERNS: &[&str] = &["CARGO_", "RUST", "LIB"];
@@ -42,7 +27,7 @@ fn main() -> Result<(), &'static str> {
     let cargo_cmd = env::var("CARGO_CMD").unwrap_or_else(|_| "".into());
 
     // If this environmment variable chnages, we should re-run this script.
-    println!("cargo:rerun-if-env-changed=LIBDEMO");
+    println!("cargo:rerun-if-env-changed=LIBPOLYHEDRONOPS");
 
     match cargo_cmd.as_str() {
         "build" => {
@@ -58,7 +43,7 @@ fn main() -> Result<(), &'static str> {
                 // bindings to version control and use maintainer-mode to update them, as needed.
                 // On the plus-side, this means that our `.rs` file is present before our first build,
                 // so at least rust-analyzer will be happy.
-                generate_rust_bindings()?;
+                //generate_rust_bindings()?;
             }
         }
 
@@ -103,7 +88,7 @@ fn generate_rust_bindings() -> Result<(), &'static str> {
         // Enable bindgen to find generated headers in the build directory, too.
         .clang_arg(build_include_path);
 
-    for &include_path in BINDGEN_INCLUDE_PATHS {
+    /*for &include_path in BINDGEN_INCLUDE_PATHS {
         builder = builder.clang_arg(include_path);
     }
     for &header in BINDGEN_HEADERS {
@@ -114,16 +99,16 @@ fn generate_rust_bindings() -> Result<(), &'static str> {
     }
     for &c_type in BINDGEN_TYPES {
         builder = builder.allowlist_type(c_type);
-    }
+    }*/
 
     // Generate!
-    builder
+    /*builder
         .generate()
         .expect("Unable to generate Rust bindings for C code")
         .write_to_file(BINDGEN_OUTPUT_FILE)
         .expect("Failed to write Rust bindings to output file");
 
-    eprintln!("bindgen outputting \"{}\"", BINDGEN_OUTPUT_FILE);
+    eprintln!("bindgen outputting \"{}\"", BINDGEN_OUTPUT_FILE);*/
 
     Ok(())
 }

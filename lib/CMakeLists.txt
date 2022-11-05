@@ -5,6 +5,3 @@
 #
 add_subdirectory(rust)
 
-# The demo C library
-#
-add_subdirectory(c)

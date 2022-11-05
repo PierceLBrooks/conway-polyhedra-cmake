@@ -11,11 +11,5 @@ add_executable(app_c)
 target_sources(app_c PRIVATE app.c)
 target_link_libraries(app_c
     PRIVATE
-        demo::rust_static_lib
-        demo::static_lib)
-if(WIN32)
-    target_link_libraries(app_c
-        PRIVATE
-            Bcrypt)
-endif()
+        polyhedronops)
 install(TARGETS app_c DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT programs)
