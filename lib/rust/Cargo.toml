@@ -1,0 +1,47 @@
+[package]
+name = "demorust"
+version = "0.3.0"
+authors = ["Moritz Moeller <virtualritz@gmail.com>"]
+edition = "2021"
+keywords = ["3d", "creative", "geometry", "graphics", "rendering"]
+categories = ["graphics", "mathematics", "multimedia", "rendering"]
+license = "MIT OR Apache-2.0 OR Zlib"
+description = "Conway/Hart Polyhedron Operations"
+readme = "README.md"
+repository = "https://github.com/virtualritz/polyhedron-ops/"
+documentation = "https://docs.rs/polyhedron-ops/"
+resolver = "2"
+
+[dependencies]
+tobj = "3.2.0"
+pest = "2.1.3"
+pest_derive = "2.1.0"
+colored = "2.0.0"
+bytemuck = "1.7.2"
+itertools = "0.10.1"
+num-traits = "0.2.14"
+rayon = "1.5.1"
+ultraviolet = { version = "0.8.1", features = ["f64"] }
+# Optional deps.
+# Add support to render polyhedra with NSI.
+#nsi = { path = "../nsi", optional = true, features = ["toolbelt"] }
+# Add support to convert a Polyhedron into a bevy Mesh.
+bevy = { version = "0.5.0", optional = true, default-features = false, features = ["render", "bevy_wgpu", "bevy_winit"] }
+# The following are dev-dependency used for examples.But if we move that there
+# we get hundreds of their depedencies pulled in for a regular build.
+# Which is not what we want – the limits of Cargo ...
+bevy-orbit-controls = { version = "2.0.0", optional = true }
+kiss3d = { version = "0.32.0", optional = true }
+
+[lib]
+crate-type = ["staticlib"]
+name = "demorust"
+
+[build-dependencies]
+cbindgen = "0.20"
+bindgen = "0.59"
+
+[dev-dependencies]
+dirs = "4.0.0"
+slice_as_array = "1.1.0"
+
